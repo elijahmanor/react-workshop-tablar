@@ -1,0 +1,44 @@
+{
+  "name": "react-workshop-v2-jsx",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [],
+  "main": "src/index.js",
+  "dependencies": {
+    "@emotion/core": "10.0.10",
+    "@emotion/styled": "10.0.10",
+    "@reach/dialog": "0.2.1",
+    "axios": "0.18.0",
+    "axios-jsonp": "1.0.2",
+    "classnames": "2.2.6",
+    "date-fns": "1.30.1",
+    "grabity": "1.0.5",
+    "greeting-time": "1.0.0",
+    "react": "16.8.3",
+    "react-dom": "16.8.3",
+    "react-icons-weather": "1.0.5",
+    "react-scripts": "2.1.8",
+    "react-select": "2.4.3",
+    "react-toggle": "4.0.2",
+    "react-use": "8.1.3",
+    "react-weathericons": "latest",
+    "rss-parser": "latest",
+    "use-dark-mode": "2.3.1",
+    "weather-icons": "latest"
+  },
+  "devDependencies": {
+    "typescript": "3.3.3"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}

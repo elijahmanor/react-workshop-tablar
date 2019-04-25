@@ -1,0 +1,39 @@
+.Weather-icon {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.Weather-refresh {
+  font-size: 1.5rem;
+}
+
+[data-reach-dialog-content] {
+  display: inline-block;
+  left: 50%;
+  position: relative;
+  transform: translateX(-50%);
+  width: auto !important;
+  padding: 1rem !important;
+  min-width: 20vw;
+  min-height: 20vw;
+  max-width: 90vw;
+  border-radius: 5px;
+}
+
+.Weather-detail:first-of-type {
+  margin-top: 1rem;
+}
+
+.Weather-detail:last-of-type {
+  margin-bottom: 1rem;
+}
+
+.Weather-detail svg {
+  margin-right: 1rem;
+}
+
+.Weather footer {
+  font-size: 0.75rem;
+  color: #666;
+  text-align: center;
+}
