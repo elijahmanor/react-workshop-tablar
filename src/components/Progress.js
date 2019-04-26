@@ -20,7 +20,7 @@ export function Progress({
           cy={height / 2}
           r={radius}
           fill="none"
-          stroke="#e6e6e6"
+          stroke="#aaa"
           strokeWidth={strokeWidth}
         />
         <circle

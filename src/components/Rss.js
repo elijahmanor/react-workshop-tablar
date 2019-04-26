@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Parser from "rss-parser";
+/** @jsx jsx */
+import { css, jsx } from "@emotion/core";
+import { distanceInWords } from "date-fns";
 
 const CORS_PROXY = "https://cors-anywhere.herokuapp.com/";
 const parser = new Parser();
@@ -15,15 +18,76 @@ export function Rss({ url }) {
   }, []);
   return feed ? (
     <div>
-      <h1>
-        <a href={feed.link}>{feed.title}</a>
+      <h1
+        css={css`
+          margin-top: 0;
+        `}
+      >
+        <a
+          css={css`
+            text-decoration: none;
+            font-size: 2rem;
+            color: black;
+            width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: inline-block;
+          `}
+          href={feed.link}
+        >
+          {feed.title}
+        </a>
       </h1>
-      <ul>
+      <ul
+        css={css`
+          list-style-type: none;
+        `}
+      >
         {feed.items.map(item => (
-          <li key={item.id}>
-            <a href={item.link}>{item.title}</a>
-            <div>{item.author}</div>
-            <time>{item.pubDate}</time>
+          <li
+            css={css`
+              margin-bottom: 1rem;
+            `}
+            key={item.id}
+          >
+            <a
+              css={css`
+                text-decoration: none;
+                font-weight: normal;
+                font-size: 1rem;
+                width: 100%;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: inline-block;
+                color: black;
+                &:hover {
+                  text-decoration: underline;
+                }
+              `}
+              href={item.link}
+            >
+              {item.title}
+            </a>
+            <div>
+              <span
+                css={css`
+                  color: #666;
+                  font-size: 0.75rem;
+                `}
+              >
+                by {item.author}
+              </span>{" "}
+              <time
+                css={css`
+                  color: #666;
+                  font-size: 0.75rem;
+                `}
+              >
+                {distanceInWords(new Date(item.pubDate), new Date())} ago
+              </time>
+            </div>
           </li>
         ))}
       </ul>

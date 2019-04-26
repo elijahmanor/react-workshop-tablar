@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import classNames from "classnames";
+import { Button } from "./Button";
 import "./TicTacToe.css";
 
 function Square({ value, onClick }) {
@@ -28,7 +29,7 @@ function calculateWinner(squares) {
     return memo;
   }, "");
   if (!winner && squares.every(s => s)) {
-    winner = "tie";
+    winner = "Tie";
   }
   return winner;
 }
@@ -67,16 +68,16 @@ function Stats({ isXNext, playerX = 0, ties = 0, playerO = 0 }) {
   return (
     <div className={classes}>
       <div className="Stats-stat Stats-playerX">
-        <div>Player X</div>
-        <div>{playerX}</div>
+        <div className="Stats-player">Player X</div>
+        <div className="Stats-wins">{playerX}</div>
       </div>
       <div className="Stats-stat Stats-ties">
-        <div>Ties</div>
-        <div>{ties}</div>
+        <div className="Stats-player">Ties</div>
+        <div className="Stats-wins">{ties}</div>
       </div>
       <div className="Stats-stat Stats-playerO">
-        <div>Player O</div>
-        <div>{playerO}</div>
+        <div className="Stats-player">Player O</div>
+        <div className="Stats-wins">{playerO}</div>
       </div>
     </div>
   );
@@ -85,8 +86,13 @@ function Stats({ isXNext, playerX = 0, ties = 0, playerO = 0 }) {
 function Status({ winner, onStart }) {
   return (
     <div className="Status">
-      <div>Winner: {winner}</div>
-      <button onClick={onStart}>Start</button>
+      <div className="Status-results">
+        <span>Winner</span>
+        <strong className="Status-winner">{winner}</strong>
+      </div>
+      <Button primary onClick={onStart}>
+        New Game
+      </Button>
     </div>
   );
 }
@@ -124,12 +130,12 @@ export function TicTacToe() {
 
   return (
     <div className="Game">
-      <Board squares={squares} onClick={handleClick} />
       {winner ? (
         <Status winner={winner} onStart={handleStart} />
       ) : (
         <Stats {...stats} isXNext={isXNext} />
       )}
+      <Board squares={squares} onClick={handleClick} />
     </div>
   );
 }

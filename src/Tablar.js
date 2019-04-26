@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-// import useLocalStorage from "react-use/lib/useLocalStorage";
 import "./Tablar.css";
 
 import {
@@ -14,7 +13,8 @@ import {
   Settings,
   Dialog
 } from "./components";
-import { useDocumentTitle, useLocalStorage } from "./customHooks";
+import { useDocumentTitle } from "./customHooks";
+import { useSettings } from "./contexts";
 
 const dialogs = {
   settings: () => [Settings],
@@ -25,17 +25,11 @@ const dialogs = {
 };
 
 export default function Tablar() {
+  const [settings, dispatch] = useSettings();
   const [dateTime, setDateTime] = useState(new Date());
-  const [name, setName] = useLocalStorage("name", "");
-  const [isEditing, setIsEditing] = useState(!name);
+  const [isEditing, setIsEditing] = useState(!settings.name);
   const [currentDialog, setCurrentDialog] = useState(null);
   const [refresh, setRefresh] = useState(false);
-  const [settings, setSettings] = useLocalStorage("settings", {
-    topColor: "black",
-    middleColor: "grey",
-    blendTop: "normal",
-    blendBottom: "saturation"
-  });
   const [CurrentDialog, dialogProps] = dialogs[currentDialog]
     ? dialogs[currentDialog]()
     : [];
@@ -74,9 +68,9 @@ export default function Tablar() {
         </h1>
         <Greeting
           dateTime={dateTime}
-          name={name}
+          name={settings.name}
           isEditing={isEditing}
-          onChange={name => setName(name)}
+          onChange={name => dispatch({ type: "SET_NAME", name })}
           onExit={() => setIsEditing(false)}
           onDoubleClick={() => setIsEditing(true)}
         />
@@ -88,14 +82,16 @@ export default function Tablar() {
         <Icon type="refresh" width="1rem" height="1rem" />
       </div>
       <div className="br" onClick={() => setCurrentDialog("rss")}>
-        <Icon type="refresh" width="1rem" height="1rem" />
+        <Icon type="rss" width="1rem" height="1rem" />
       </div>
       <Dialog isOpen={!!CurrentDialog} onClose={() => setCurrentDialog(null)}>
-        <CurrentDialog
-          settings={settings}
-          onChange={setSettings}
-          {...dialogProps}
-        />
+        {!!CurrentDialog && (
+          <CurrentDialog
+            settings={settings}
+            dispatch={dispatch}
+            {...dialogProps}
+          />
+        )}
       </Dialog>
       <IconLibrary />
     </Palette>

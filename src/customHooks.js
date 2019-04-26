@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useReducer } from "react";
 
 export const useLocalStorage = (key, defaultValue) => {
   const initialValue = () =>
@@ -10,6 +10,21 @@ export const useLocalStorage = (key, defaultValue) => {
     window.localStorage.setItem(key, JSON.stringify(storage));
   }, [key, storage]);
   return [storage, updateStorage];
+};
+
+export const useReducerWithLocalStorage = (reducer, key, defaultValue) => {
+  const initialValue = () => {
+    console.log("Getting initial value...");
+    return JSON.parse(
+      window.localStorage.getItem(key) || JSON.stringify(defaultValue)
+    );
+  };
+  const [state, dispatch] = useReducer(reducer, defaultValue, initialValue);
+  useEffect(() => {
+    console.log("Saving to localStorage...", key, state);
+    window.localStorage.setItem(key, JSON.stringify(state));
+  }, [key, state]);
+  return [state, dispatch];
 };
 
 export const useDocumentTitle = title => {

@@ -1,36 +1,30 @@
 import React, { useEffect } from "react";
-// import useLocalStorage from "react-use/lib/useLocalStorage";
 
 import { Background } from "./Background";
-import { useLocalStorage } from "../customHooks";
+import { useSettings } from "../contexts";
 
 const UNSPLASH_COLLECTION =
   "https://source.unsplash.com/collection/3802293/1600x900";
 
-export function Palette({
-  refresh = false,
-  onRefreshed = () => {},
-  settings = {},
-  children
-}) {
-  const [url, setUrl] = useLocalStorage("backgroundUrl", UNSPLASH_COLLECTION);
+export function Palette({ refresh = false, onRefreshed = () => {}, children }) {
+  const [settings, dispatch] = useSettings();
 
   useEffect(() => {
     async function getUrl() {
-      if (url === UNSPLASH_COLLECTION || refresh) {
+      if (settings.backgroundUrl === UNSPLASH_COLLECTION || refresh) {
         console.log("refresh", refresh);
         const response = await window.fetch(
           "https://source.unsplash.com/collection/3802293/1600x900"
         );
-        setUrl(response.url);
+        dispatch({ type: "SET_BACKGROUND_URL", backgroundUrl: response.url });
         onRefreshed();
       }
     }
     getUrl();
-  }, [refresh]);
+  }, [refresh, onRefreshed, dispatch, settings.backgroundUrl]);
 
   return (
-    <Background classNamex="Background" url={url} {...settings}>
+    <Background url={settings.backgroundUrl} {...settings}>
       {children}
     </Background>
   );

@@ -5,18 +5,18 @@
 .Board {
   display: flex;
   flex-direction: column;
-  margin-bottom: 1rem;
+  margin-top: 1rem;
 }
 
 .Square {
   background: #fff;
   border: 1px solid #999;
   float: left;
-  font-size: 56px;
+  font-size: 3rem;
   font-weight: bold;
-  width: 75px;
-  height: 75px;
-  line-height: 75px;
+  width: 5rem;
+  height: 5rem;
+  line-height: 5rem;
   margin-right: -1px;
   margin-top: -1px;
   padding: 0;
@@ -31,6 +31,7 @@
 .Stats {
   display: flex;
   justify-content: space-between;
+  height: 3rem;
 }
 
 .Stats-stat {
@@ -38,6 +39,11 @@
   flex-direction: column;
   align-items: center;
   font-weight: bold;
+}
+
+.Stats.Stats--playerX .Stats-playerX .Stats-wins,
+.Stats.Stats--playerO .Stats-playerO .Stats-wins {
+  background-color: orange;
 }
 
 .Stats.Stats--playerX .Stats-ties,
@@ -48,4 +54,35 @@
 .Stats.Stats--playerO .Stats-playerX,
 .Stats.Stats--playerO .Stats-ties {
   opacity: 0.5;
+}
+
+.Stats-player {
+  margin-bottom: 0.5rem;
+}
+
+.Stats-wins {
+  background-color: #ccc;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 1.5rem;
+  font-family: monospace;
+}
+
+.Status {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 3rem;
+}
+
+.Status-results {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Status-winner {
+  font-size: 2rem;
 }

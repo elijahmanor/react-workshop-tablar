@@ -7,17 +7,11 @@
   font-size: 1.5rem;
 }
 
-[data-reach-dialog-content] {
-  display: inline-block;
-  left: 50%;
-  position: relative;
-  transform: translateX(-50%);
-  width: auto !important;
-  padding: 1rem !important;
-  min-width: 20vw;
-  min-height: 20vw;
-  max-width: 90vw;
-  border-radius: 5px;
+[data-reach-dialog-content] .Weather {
+  margin: -1rem;
+  padding: 1rem;
+  /* https://webgradients.com/ */
+  background-image: linear-gradient(to top, #dfe9f3 0%, white 100%);
 }
 
 .Weather-detail:first-of-type {

@@ -4,6 +4,8 @@ import adapter from "axios-jsonp";
 import WeatherIcon from "react-icons-weather";
 import useGeolocation from "react-use/lib/useGeolocation";
 import useLocalStorage from "react-use/lib/useLocalStorage";
+import { useSettings } from "../contexts";
+import { throttle } from "lodash";
 
 import "./Weather.css";
 
@@ -85,37 +87,81 @@ function DetailedForecast({ weather }) {
   );
 }
 
+const getWeather = throttle(url => {
+  console.log("actually doing the ajax call...");
+  const data = {
+    coord: { lon: -0.13, lat: 51.51 },
+    weather: [
+      {
+        id: 300,
+        main: "Drizzle",
+        description: "light intensity drizzle",
+        icon: "09d"
+      }
+    ],
+    base: "stations",
+    main: {
+      temp: Math.random() * 100,
+      pressure: 1012,
+      humidity: 81,
+      temp_min: 279.15,
+      temp_max: 281.15
+    },
+    visibility: 10000,
+    wind: { speed: 4.1, deg: 80 },
+    clouds: { all: 90 },
+    dt: new Date().getTime(),
+    sys: {
+      type: 1,
+      id: 5091,
+      message: 0.0103,
+      country: "GB",
+      sunrise: 1485762037,
+      sunset: 1485794875
+    },
+    id: 2643743,
+    name: "London",
+    cod: 200
+  };
+  // return axios({ url, adapter });
+  return Promise.resolve({ data });
+}, 60000);
+
 export function Weather({ view = "simple" }) {
-  const [weather, setWeather] = useLocalStorage("weather", null);
-  const location = useGeolocation();
-  const { latitude, longitude } = !location.error
-    ? location
-    : {
-        latitude: 36.072662099999995,
-        longitude: -86.94953489999999
-      };
-  const url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=imperial&appid=${apiKey}`;
+  const [settings, dispatch] = useSettings();
+  const { latitude, longitude, loading, error } = useGeolocation();
+  const url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude ||
+    36.162663}&lon=${longitude || -86.781601}&units=imperial&appid=${apiKey}`;
 
   useEffect(() => {
     let timer;
     const refresh = () => {
-      console.log("Getting weather...");
-      axios({ url, adapter }).then(({ data }) => setWeather(data));
-      timer = window.setTimeout(refresh, 300000);
+      if (url) {
+        // !loading && !error) {
+        console.log("Getting weather...", url);
+        getWeather(url).then(({ data }) => {
+          console.log("Weather is back...");
+          dispatch({ type: "SET_WEATHER", weather: data });
+        });
+        timer = window.setTimeout(refresh, 300000);
+      } else {
+        console.log("Loading or error", {
+          loading,
+          message: error ? error.message : ""
+        });
+      }
     };
     refresh();
     return () => window.clearTimeout(timer);
-  }, [latitude, longitude, url, setWeather]);
-
-  console.log({ weather });
+  }, [latitude, longitude, url, dispatch, loading, error]);
 
   return (
     <div className="Weather">
-      {weather ? (
+      {settings.weather ? (
         view === "simple" ? (
-          <SimpleForecast weather={weather} />
+          <SimpleForecast weather={settings.weather} />
         ) : (
-          <DetailedForecast weather={weather} />
+          <DetailedForecast weather={settings.weather} />
         )
       ) : (
         <svg width="1rem" height="1rem" viewBox="0 0 24 24">

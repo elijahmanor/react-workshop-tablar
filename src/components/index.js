@@ -9,3 +9,4 @@ export * from "./Settings";
 export * from "./Progress";
 export * from "./Icon";
 export * from "./Dialog";
+export * from "./Button";
