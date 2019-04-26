@@ -1,7 +1,7 @@
 {
-  "name": "react-workshop-v2-jsx",
+  "name": "react-workshop-v2",
   "version": "1.0.0",
-  "description": "",
+  "description": "Tablar",
   "keywords": [],
   "main": "src/index.js",
   "dependencies": {
@@ -11,7 +11,8 @@
     "axios": "0.18.0",
     "axios-jsonp": "1.0.2",
     "classnames": "2.2.6",
-    "date-fns": "1.30.1",
+    "date-fns": "2.0.0-alpha.27",
+    "date-fns-tz": "1.0.7",
     "grabity": "1.0.5",
     "greeting-time": "1.0.0",
     "react": "16.8.3",
