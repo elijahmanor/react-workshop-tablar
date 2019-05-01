@@ -1,0 +1,10 @@
+{
+  "name": "Tablar",
+  "manifest_version": 2,
+  "chrome_url_overrides": {
+    "newtab": "./index.html"
+  },
+  "content_security_policy": "script-src https://api.openweathermap.org/ 'self' unsafe-inline' 'unsafe-eval'; style-src * 'self' data: 'unsafe-inline'; connect-src https://source.unsplash.com/ https://images.unsplash.com/ https://cors-anywhere.herokuapp.com/; media-src https://source.unsplash.com/; object-src 'self'",
+  "version": "1.0",
+  "permissions": ["bookmarks", "unlimitedStorage", "geolocation"]
+}
