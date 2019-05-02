@@ -29,6 +29,7 @@
     "weather-icons": "latest"
   },
   "devDependencies": {
+    "react-testing-library": "^7.0.0",
     "typescript": "3.3.3"
   },
   "scripts": {
