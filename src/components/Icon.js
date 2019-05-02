@@ -72,9 +72,10 @@ export const IconLibrary = () => {
 };
 
 export const Icon = props => {
-  const svgProps = omit(props, "type");
+  const svgProps = omit(props, "type", "title");
   return (
     <svg {...svgProps}>
+      <title>{props.title}</title>
       <use href={`#${props.type}`} />
     </svg>
   );
