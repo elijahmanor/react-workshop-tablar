@@ -37,14 +37,8 @@ function settingsReducer(state, action) {
     case "SET_TOP_COLOR": {
       return { ...state, topColor: action.topColor };
     }
-    case "SET_MIDDLE_COLOR": {
-      return { ...state, middleColor: action.middleColor };
-    }
     case "SET_BLEND_TOP": {
       return { ...state, blendTop: action.blendTop };
-    }
-    case "SET_BLEND_BOTTOM": {
-      return { ...state, blendBottom: action.blendBottom };
     }
     default: {
       throw new Error(`Unsupported action type: ${action.type}`);

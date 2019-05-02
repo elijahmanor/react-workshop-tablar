@@ -62,7 +62,7 @@ export function Settings({ settings = {}, dispatch }) {
         </Input>
       </Container>
       <Container>
-        <Label>Top Color</Label>
+        <Label>Color</Label>
         <Input>
           <Select
             defaultValue={{ value: topColor, label: topColor }}
@@ -74,38 +74,12 @@ export function Settings({ settings = {}, dispatch }) {
         </Input>
       </Container>
       <Container>
-        <Label>Middle Color</Label>
-        <Input>
-          {" "}
-          <Select
-            defaultValue={{ value: middleColor, label: middleColor }}
-            onChange={({ value }) =>
-              dispatch({ type: "SET_MIDDLE_COLOR", middleColor: value })
-            }
-            options={colorOptions}
-          />
-        </Input>
-      </Container>
-      <Container>
-        <Label>Blend Top</Label>
+        <Label>Blend</Label>
         <Input>
           <Select
             defaultValue={{ value: blendTop, label: blendTop }}
             onChange={({ value }) =>
               dispatch({ type: "SET_BLEND_TOP", blendTop: value })
-            }
-            options={blendOptions}
-          />
-        </Input>
-      </Container>
-      <Container>
-        <Label>Blend Bottom</Label>
-        <Input>
-          {" "}
-          <Select
-            defaultValue={{ value: blendBottom, label: blendBottom }}
-            onChange={({ value }) =>
-              dispatch({ type: "SET_BLEND_BOTTOM", blendBottom: value })
             }
             options={blendOptions}
           />
